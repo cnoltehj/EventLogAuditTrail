@@ -1,5 +1,6 @@
 {
     "python.analysis.extraPaths": [
-        "./DatabaseContext/Models"
+        "./DatabaseContext/Models",
+        "./Models"
     ]
 }

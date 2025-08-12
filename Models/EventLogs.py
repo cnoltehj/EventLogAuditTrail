@@ -1,15 +1,15 @@
 from pydantic import BaseModel
 from datetime import datetime
+from typing import Optional
 
 from pyparsing import Optional
 
-class EventLogModel(BaseModel):
-    CorrelationId: str
+class EventLog(BaseModel):
+    CorrelationId: Optional[str] = None
     Event: str
     Url: str
     RequestBody: str
     ResponseBody: str
     Duration: int
     UserId: int
-    Created: datetime
-    TransactionId: Optional[int]
+    TransactionId: Optional[int] = None

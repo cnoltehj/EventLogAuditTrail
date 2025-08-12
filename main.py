@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
-from DatabaseContext import ExtractDBData, CreateDBData
+from DatabaseContext import ExtractDBData, CreateDBData, CreateDBEventLogs
 import json
 from pydantic import BaseModel
-from Events import EventLogModel
-
+#from Models.EventLogs import EventLog as EventLogModel
+from typing import Optional
 
 app = FastAPI()
 
@@ -44,10 +44,28 @@ def read_productsdetail():
 
 # Add EventLog
 @app.post("/Add_EventLogs/", tags=["GENERIC CALLS"])
-def create_eventlogs(model: EventLogModel):
-    create_eventlogs = CreateDBData.create_eventlogs_data(model: EventLogModel)
+def create_eventlogs(Event: str,
+                        UserId: int,
+                        TransactionId: str,
+                        CorrelationId: Optional[str] = None,
+                        Url: Optional[str] = None,
+                        RequestBody: Optional[str] = None,
+                        ResponseBody: Optional[str] = None,
+                        Duration: Optional[int] = 0):
+    
+    create_eventlogs = CreateDBEventLogs.create_eventlogs_data(Event,
+                        UserId,
+                        TransactionId,
+                        CorrelationId,
+                        Url,
+                        RequestBody,
+                        ResponseBody,
+                        Duration)
+    
+
     if create_eventlogs is None:
         return {"error": "Event logs data not found"}
+  
     # Convert DataFrame to JSON serializable format (list of dictionaries)
     return create_eventlogs.to_dict(orient='records')
 

@@ -6,7 +6,10 @@
             "type": "shell",
             "command": "py -m uvicorn main:app --reload --port 8081",
             "problemMatcher": [],
-            "isBackground": true
+            "isBackground": true,
+            "presentation": {
+        "reveal": "always"
+      }
         }
     ]
 }

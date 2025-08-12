@@ -4,10 +4,14 @@
         {
             "type": "chrome",
             "request": "launch",
+            "module": "uvicorn",
+            "args": ["uvicorn main:app", "--reload", "--port", "8081"],
+            "jinja": true,
             "name": "Launch Chrome to FastAPI docs",
             "url": "http://127.0.0.1:8081/docs",
             "webRoot": "${workspaceFolder}",
-            "preLaunchTask": "Run Uvicorn"
+            "preLaunchTask": "Run Uvicorn",
+            "cwd": "${workspaceFolder}/EventLogAuditTrail"
         }
     ]
 }
